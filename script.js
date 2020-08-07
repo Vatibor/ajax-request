@@ -1,16 +1,21 @@
 
 
-document.getElementById('fetch-button').onclick = function () {
-    let url = 'http://jsonplaceholder.typicode.com/posts';
-    sendRequest(url, 'GET', null, function (posts) {
-        let postListHTML = '';
-        for (let post of posts) {
-            postListHTML += `
-                    <p>${post.title}</p>
-                    <small>${post.body}</small>`
-        }
-        document.getElementById('post-list-container').innerHTML = postListHTML;
-    });
+document.getElementById('login').onclick = function () {
+    let url = 'https://reqres.in/api/login';
+    let body = JSON.stringify({
+        email: 'eve.holt@reqres.in',
+        password: 'cityslicka'
+    })
+    sendRequest(url, 'POST', body, function(token) {
+        // a token scope-ra figyelni kell
+        console.log(token);
+        // az egymástól függő requestek beágyazottsága
+        // erre megoldás a promise
+        sendRequest('https://reqres.in/api/users', 'GET', null, function(users) {
+            console.log(users);
+        })
+    })
+    
 }
 
 
@@ -23,8 +28,8 @@ function sendRequest(url, method, body, callback) {
             callback(JSON.parse(xhr.responseText));
         }
     };
-    
     xhr.open(method, url);
+    xhr.setRequestHeader('content-type', 'application/json');
     xhr.send(body);
 }
 

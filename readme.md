@@ -27,3 +27,13 @@ Call Stack
 	
     callback 
      - függvény, ami akkor hívunk meg ha a readystatechange 4 lesz és 200 a status
+
+-------------------------------------------------------------------------------------------
+
+login flow
+regres.in
+
+successful login -> sendRequest POST-> get token -> send token GET -> get users array
+ - az első request-től függ a második
+ - az egymástól függő requestek beágyazottsága
+ - erre megoldás a promise
