@@ -25,3 +25,5 @@ Call Stack
 	• Aszinkron működés
 	• 
 	
+    callback 
+     - függvény, ami akkor hívunk meg ha a readystatechange 4 lesz és 200 a status
